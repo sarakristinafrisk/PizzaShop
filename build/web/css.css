@@ -1,0 +1,110 @@
+/* 
+    Document   : css
+    Created on : 2013-maj-13, 12:03:26
+    Author     : sarafrisk
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+}
+
+/* LOGIN BOX */
+
+#login {
+  width: 300px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding-left: 40px;
+  padding-bottom: 20px;
+  margin: 100px auto 0 auto;
+}
+
+#login label {
+    width: 80px;
+}
+
+#login ul {
+    padding: 0;
+}
+
+#login li {
+    margin: 10px 0;
+    list-style: none;
+}
+
+.login_button {
+    width: 130px;   
+}
+
+#login h1 {
+    margin-bottom: 5px;
+}
+#login h3 {
+    margin-top: 0;
+}
+
+
+/* CREATE NEW USER */
+
+#create_user {
+    margin: 30px;       
+}
+
+#create_user label {
+     display: inline-block;
+    width: 110px;
+}
+
+#create_user ul {
+    padding: 0;
+}
+
+#create_user li {
+    margin: 10px 0;
+    list-style: none;
+}
+
+
+/* INGREDIENT CONTAINER*/
+
+#ingredient_container {
+    width: 300px;
+    background: #00FF00;
+    padding: 5px 10px;
+}
+
+.ingredient {
+    width: 100%;
+    height: 20px;
+    padding: 5px 0;
+}
+.ingredient .name {
+    float: left;
+    width: 150px;
+}
+
+.ingredient .price {
+   float: left; 
+   margin: 0 20px;
+   width: 50px;
+   
+}
+
+.ingredient .pick {
+    float: right;
+}
+
+#add_pizza_button {
+    margin-top: 20px;
+}
+
+/* CHART */
+
+#chart_header {
+    margin-top: 50px;
+}

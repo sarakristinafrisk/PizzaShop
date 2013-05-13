@@ -1,7 +1,8 @@
 <%-- 
     Document   : shop
     Created on : 2013-maj-13, 12:57:46
-    Author     : sarafrisk
+    Author     : Sara Frisk
+    Author     : Emma Rangert
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +17,13 @@
     <body>
         <div id="shop">
             
-            <h1>Pizzeria Online</h1>
+            
+                <h1>Pizzeria Online</h1>
+            
+                <div id="edit_profile">
+                    <a href="create_profile.jsp">Redigera profil</a>
+                </div>
+            
             
             <div id="ingredient_container">
                 <div class="ingredient">
@@ -35,12 +42,16 @@
                     </div>
                 </div>
             </div>
-            <input id="add_pizza_button" type="button" value="Lägg till pizza i kundvagnen"/>
             
-            <div id="chart">
-             <h3 id="chart_header">Kundvagn</h3>   
-                
-                
+            <div id="shop_feedback_panel">
+                <label id="pizza_price_label">Pris:</label>
+                <input id="pizza_price_textbox" type="text"/>
+                <input id="add_pizza_button" type="button" value="Lägg till pizza i kundvagnen"/>
+            </div>
+            
+            <div id="cart">
+                <h3 id="cart_header">Kundvagn</h3>
+                <a href="check_out.jsp">Till kassan</a>
             </div>
   
         </div>

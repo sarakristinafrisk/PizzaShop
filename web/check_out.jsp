@@ -1,0 +1,26 @@
+<%-- 
+    Document   : index
+    Created on : 2013-maj-13, 12:01:45
+    Author     : Sara Frisk
+    Author     : Emma Rangert
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <link rel="stylesheet" href="css.css" />
+
+        <title>Kassan</title>
+    </head>
+    <body>
+        
+        <div id="check_out">
+            <h1>Pizza Online</h1>
+            <h3>Välkommen till kassan!</h3>
+            
+
+        </div>
+    </body>
+</html>

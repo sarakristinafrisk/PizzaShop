@@ -36,8 +36,7 @@
 
                     <li>
                         <input class="login_button" type="button" value="Skapa ny användare"/>
-                        <input class="login_button" type="submit" value="Logga in">                        <input class="login_button" type="submit" value="Logga in">
-
+                        <input class="login_button" type="submit" value="Logga in">
                     </li>
                 </ul>   
             </form>

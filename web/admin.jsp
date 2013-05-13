@@ -20,15 +20,16 @@
             
             <div id="ingredient_container">
                 <div class="ingredient">
-                    <input type="text" name="name">
-                    <input type="text" name="price">
-                    <input type="text" name="stock">
+                    <input class="name" type="text" name="name">
+                    <input class="price" type="text" name="price">
+                    <input class="stock" type="text" name="stock">
                 </div>
              
                 <div class="ingredient">
-                    <input type="text" name="name">
-                    <input type="text" name="price">
-                    <input type="text" name="stock">
+                <div class="ingredient">
+                    <input class="name" type="text" name="name">
+                    <input class="price" type="text" name="price">
+                    <input class="stock" type="text" name="stock">
                 </div>
             </div>
             <input id="add_ingredient" type="button" value="Lägg till ingrediens"/>

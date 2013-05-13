@@ -138,7 +138,7 @@ body {
 
 #admin .ingredient .stock {
     float: right;
-    width: 20px;
+    width: 40px;
 }
 
 #admin #add_ingredient {

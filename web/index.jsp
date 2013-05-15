@@ -15,6 +15,6 @@
         <title>Logga in</title>
     </head>
     <body>
-        Go to the <a href="shop">shop</a>
+        Go to the <a href="ShopServlet">shop</a>
     </body>
 </html>

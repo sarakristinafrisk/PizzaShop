@@ -1,7 +1,8 @@
 /* 
     Document   : css
     Created on : 2013-maj-13, 12:03:26
-    Author     : sarafrisk
+    Author     : Sara Frisk
+    Author     : Emma Rangert
     Description:
         Purpose of the stylesheet follows.
 */
@@ -11,6 +12,7 @@ root {
 }
 
 body {
+    margin: 30px; 
 }
 
 /* LOGIN BOX */
@@ -18,14 +20,15 @@ body {
 #login {
   width: 300px;
   border: 1px solid #000;
-  border-radius: 10px;
+  border-radius: 5px;
   padding-left: 40px;
   padding-bottom: 20px;
   margin: 100px auto 0 auto;
 }
 
 #login label {
-    width: 80px;
+    display: inline-block;
+    width: 110px;
 }
 
 #login ul {
@@ -52,11 +55,10 @@ body {
 /* CREATE NEW USER */
 
 #create_user {
-    margin: 30px;       
 }
 
 #create_user label {
-     display: inline-block;
+    display: inline-block;
     width: 110px;
 }
 
@@ -72,10 +74,17 @@ body {
 
 /* INGREDIENT CONTAINER - SHOP */
 
+
+
+#shop #edit_profile {
+    float: right;
+}
+
 #shop #ingredient_container {
     width: 300px;
-    background: #00FF00;
     padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 #shop .ingredient {
@@ -103,9 +112,14 @@ body {
     margin-top: 20px;
 }
 
+#shop_feedback_panel #pizza_price_textbox {
+    width: 30px;
+}
+
+
 /* CHART */
 
-#shop #chart_header {
+#shop #cart_header {
     margin-top: 50px;
 }
 
@@ -115,8 +129,9 @@ body {
 
 #admin #ingredient_container {
     width: 300px;
-    background: #00FF00;
     padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 #admin .ingredient {
@@ -138,10 +153,25 @@ body {
 
 #admin .ingredient .stock {
     float: right;
-    width: 20px;
+    width: 40px;
 }
 
 #admin #add_ingredient {
     margin-top: 20px;
 }
 
+#admin .column_labels #name_label {
+    display: inline-block;
+    width: 150px;
+}
+
+#admin .column_labels #price_label {
+    display: inline-block;
+    width: 50px;
+    margin: 0 23px;
+}
+
+#admin .column_labels #stock_label {
+    display: inline-block;
+    width: 40px;
+}

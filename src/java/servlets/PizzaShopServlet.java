@@ -4,10 +4,9 @@
  */
 package servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import beans.IngredientListBean;
+import java.io.*;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author emmarangert
  */
-public class ShopServlet extends HttpServlet {
+public class PizzaShopServlet extends HttpServlet {
+    
+    private static String jdbcURL = null;
+    private IngredientListBean ingredientList = null;
 
     /**
      *
@@ -26,7 +28,21 @@ public class ShopServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+
+        jdbcURL = config.getInitParameter("JDBC_URL");
+        
+        try {
+            ingredientList = new IngredientListBean("jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");//jdbcURL);//"jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
+        } catch(Exception e) {
+            throw new ServletException(e);
+        }
+        
+        // servletContext is the same as scope Application
+	// store the booklist in application scope
+        ServletContext servletContext = getServletContext();
+        servletContext.setAttribute("ingredientList", ingredientList);
     }
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -42,15 +58,14 @@ public class ShopServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /*
-             * TODO output your page here. You may use following sample code.
-             */
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ShopServlet</title>");            
+            out.println("<title>Servlet PizzaShopServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ShopServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PizzaShopServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         } finally {            

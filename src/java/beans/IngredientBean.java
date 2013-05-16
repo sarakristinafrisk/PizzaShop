@@ -14,7 +14,7 @@ public class IngredientBean {
     private String name;
     private double price;
     
-    /** Creates a new instance of BookBean */
+    /** Creates a new instance of IngredientBean */
     public IngredientBean() {
     }
     

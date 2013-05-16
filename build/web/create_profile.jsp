@@ -1,7 +1,8 @@
 <%-- 
     Document   : create_profile
     Created on : 2013-maj-13, 12:36:23
-    Author     : sarafrisk
+    Author     : Sara Frisk
+    Author     : Emma Rangert
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css.css" />
 
-        <title>Create new profile</title>
+        <title>Skapa en ny profil</title>
         
     </head>
     <body>
@@ -41,7 +42,7 @@
                         <input type="text" name="user_email_input" id="user_email_input"/>
                     </li>
                     <li>
-                        <label id="user_address">Adress:</label>
+                        <label id="user_address">Gatuadress:</label>
                         <input type="text" name="user_address_input" id="user_address_input"/>
                     </li>
                     <li>
@@ -57,7 +58,7 @@
                         <input type="text" name="user_contry_input" id="user_contry_input"/>
                     </li>
                     <li>
-                        <input class="create_user_button" type="submit" value="Logga in">
+                        <input class="create_user_button" type="submit" value="Spara" />
                     </li>
                 </ul>   
             </form>

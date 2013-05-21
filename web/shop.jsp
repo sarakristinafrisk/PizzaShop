@@ -5,7 +5,10 @@
     Author     : Emma Rangert
 --%>
 
+<%@page import="beans.IngredientListBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+          
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,27 +23,31 @@
             
                 <h1>Pizzeria Online</h1>
             
+            
                 <div id="edit_profile">
                     <a  href="PizzaShopServlet?action=editProfile">Redigera profil</a>
                 </div>
             
             
+
             <div id="ingredient_container">
-                <div class="ingredient">
-                    <div class="name">Lök</div>
-                    <div class="price">15:-</div>
-                    <div class="pick">
-                        <input type="checkbox" name="pick_input"/>
+            	
+                <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
+                
+                <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
+
+                    
+                    <div class="ingredient">
+                        <div class="name"><c:out value="${ingredient.getName()}"/></div>
+                        <div class="price"><c:out value="${ingredient.getPrice()}"/> :-</div>
+                        <div class="pick">
+                            <input type="checkbox" name="pick_input"/>
+                        </div>
                     </div>
-                </div>
-             
-                <div class="ingredient">
-                    <div class="name">Tomat</div>
-                    <div class="price">10:-</div>
-                    <div class="pick">
-                        <input type="checkbox" name="pick_input"/>
-                    </div>
-                </div>
+                    
+
+                 </c:forEach>
+
             </div>
             
             <div id="shop_feedback_panel">

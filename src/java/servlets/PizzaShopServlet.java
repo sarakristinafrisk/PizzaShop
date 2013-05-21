@@ -86,10 +86,18 @@ public class PizzaShopServlet extends HttpServlet {
             
         } else if (request.getParameter("action").equals("loginCheck")){
             
-            //CHECK OCH LOGGA IN ELLER TILLBAKA
+            String user_name = request.getParameter("user_name_input");
+            String user_password = request.getParameter("user_password_input");
+
+            if (profileList.checkIfExisting(user_name, user_password)) {
+                rd = request.getRequestDispatcher("/shop.jsp"); 
+                rd.forward(request,response);
+            } else {
+                //Error page
+            }
             
-            rd = request.getRequestDispatcher("/shop.jsp"); 
-            rd.forward(request,response);
+            
+
             
         } else if (request.getParameter("action").equals("shop")){
             //Rätta till så att den hämtar i web.xml

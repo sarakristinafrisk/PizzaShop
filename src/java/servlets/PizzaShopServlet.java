@@ -5,7 +5,11 @@
 package servlets;
 
 import beans.IngredientListBean;
+import beans.ProfileBean;
+import beans.ProfileListBean;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +25,7 @@ public class PizzaShopServlet extends HttpServlet {
 
     private static String jdbcURL = null;
     private IngredientListBean ingredientList = null;
-
+    private ProfileListBean profileList = null;
     /**
      *
      * @param config
@@ -37,10 +41,17 @@ public class PizzaShopServlet extends HttpServlet {
         jdbcURL = config.getInitParameter("JDBC_URL");
         
         try {
-            ingredientList = new IngredientListBean("jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");//jdbcURL);//"jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
+            ingredientList = new IngredientListBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere");//jdbcURL);//"jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
         } catch(Exception e) {
             throw new ServletException(e);
         }
+        
+        try {
+            profileList = new ProfileListBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere");//jdbcURL);//"jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
+        } catch(Exception e) {
+            throw new ServletException(e);
+        }
+        
         
         // servletContext is the same as scope Application
 	// store the booklist in application scope
@@ -59,7 +70,7 @@ public class PizzaShopServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         
         
@@ -67,23 +78,76 @@ public class PizzaShopServlet extends HttpServlet {
         RequestDispatcher rd = null;
         sess.setAttribute("jdbcURL",jdbcURL);
         
-        
+        // A request dispatcher that's connected to the page.
+
         if(request.getParameter("action") == null) {
             rd = request.getRequestDispatcher("/login.jsp"); 
             rd.forward(request,response);
-                
+            
+        } else if (request.getParameter("action").equals("loginCheck")){
+            
+            //CHECK OCH LOGGA IN ELLER TILLBAKA
+            
+            rd = request.getRequestDispatcher("/shop.jsp"); 
+            rd.forward(request,response);
+            
         } else if (request.getParameter("action").equals("shop")){
-	    
-            // A request dispatcher that's connected to the page.
-	    
             //Rätta till så att den hämtar i web.xml
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
-        } else if (request.getParameter("action").equals("editProfile")) {
-             rd = request.getRequestDispatcher("/create_profile.jsp"); 
+            
+        } else if (request.getParameter("action").equals("createProfile")) {
+            rd = request.getRequestDispatcher("/create_profile.jsp"); 
             rd.forward(request,response);
+                
+        } else if (request.getParameter("action").equals("createProfileCheck")) {
+            
+           String user_name = request.getParameter("user_name_input");
+           String user_password = request.getParameter("user_password_input");
+           String user_firstname = request.getParameter("user_firstname_input");
+           String user_surname = request.getParameter("user_surname_input");
+           String user_email = request.getParameter("user_email_input");
+           String user_address = request.getParameter("user_address_input");
+           String user_postcode = request.getParameter("user_postcode_input");
+           String user_city = request.getParameter("user_city_input");
+           String user_country = request.getParameter("user_country_input");
+           
+
+           /*if (user_name.equals("") || user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
+                    user_address.equals("") || user_postcode.equals("") || user_city.equals("") || user_country.equals("")) {
+               //Fel-sida
+           } else */if (profileList.checkIfExisting(user_name)) {
+               //Fel-sida
+           } else {
+               ProfileBean pBean = new ProfileBean();
+               pBean.setUsername(user_name);
+               pBean.setFirstname(user_firstname);
+               pBean.setSurname(user_surname);
+               pBean.setPassword(user_password);
+               pBean.setEmail(user_email);
+               pBean.setAddress(user_address);
+               pBean.setPostcode(user_postcode);
+               pBean.setCity(user_city);
+               pBean.setCountry(user_country);
+
+               profileList.addProfileBean(pBean);
+               //Skapa böna
+               
+               rd = request.getRequestDispatcher("/shop.jsp"); 
+               rd.forward(request,response);
+           }
+           
+            
+             
+        } else if (request.getParameter("action").equals("editProfile")) {
+            
+            /* FYLL I FÄLT */
+            
+            rd = request.getRequestDispatcher("/create_profile.jsp"); 
+            rd.forward(request,response);
+            
         } else if (request.getParameter("action").equals("checkout")) {
-             rd = request.getRequestDispatcher("/check_out.jsp"); 
+            rd = request.getRequestDispatcher("/check_out.jsp"); 
             rd.forward(request,response);
         }
         
@@ -103,7 +167,11 @@ public class PizzaShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(PizzaShopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,7 +186,11 @@ public class PizzaShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(PizzaShopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -21,7 +21,7 @@
                 <h1>Pizzeria Online</h1>
             
                 <div id="edit_profile">
-                    <a href="create_profile.jsp">Redigera profil</a>
+                    <a  href="PizzaShopServlet?action=editProfile">Redigera profil</a>
                 </div>
             
             
@@ -51,7 +51,7 @@
             
             <div id="cart">
                 <h3 id="cart_header">Kundvagn</h3>
-                <a href="check_out.jsp">Till kassan</a>
+                <a href="PizzaShopServlet?action=checkout">Till kassan</a>
             </div>
   
         </div>

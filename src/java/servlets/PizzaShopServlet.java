@@ -10,13 +10,15 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author emmarangert
  */
 public class PizzaShopServlet extends HttpServlet {
-    
+    private static String shopPage=null;
+
     private static String jdbcURL = null;
     private IngredientListBean ingredientList = null;
 
@@ -28,6 +30,9 @@ public class PizzaShopServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        
+        shopPage = config.getInitParameter("SHOP_PAGE");
+
 
         jdbcURL = config.getInitParameter("JDBC_URL");
         
@@ -56,21 +61,33 @@ public class PizzaShopServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PizzaShopServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PizzaShopServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+        
+        
+        HttpSession sess = request.getSession();
+        RequestDispatcher rd = null;
+        sess.setAttribute("jdbcURL",jdbcURL);
+        
+        
+        if(request.getParameter("action") == null) {
+            rd = request.getRequestDispatcher("/login.jsp"); 
+            rd.forward(request,response);
+                
+        } else if (request.getParameter("action").equals("shop")){
+	    
+            // A request dispatcher that's connected to the page.
+	    
+            //Rätta till så att den hämtar i web.xml
+            rd = request.getRequestDispatcher("/shop.jsp"); 
+            rd.forward(request,response);
+        } else if (request.getParameter("action").equals("editProfile")) {
+             rd = request.getRequestDispatcher("/create_profile.jsp"); 
+            rd.forward(request,response);
+        } else if (request.getParameter("action").equals("checkout")) {
+             rd = request.getRequestDispatcher("/check_out.jsp"); 
+            rd.forward(request,response);
         }
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

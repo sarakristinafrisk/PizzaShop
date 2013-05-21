@@ -12,4 +12,14 @@
         <param-name>JDBC_URL</param-name>
       <param-value>jdbc:mysql://localhost/pizzashop?user=root&amp;password=yourpasswordhere</param-value>
     </init-param>
+    <init-param>
+        <param-name>SHOP_PAGE</param-name>
+        <param-value>/shop.jsp</param-value>
+    </init-param>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+
 </web-app>

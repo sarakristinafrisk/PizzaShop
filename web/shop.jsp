@@ -6,6 +6,8 @@
 --%>
 
 <%@page import="beans.IngredientListBean"%>
+<%@page import="beans.CartBean"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           
@@ -21,44 +23,63 @@
         <div id="shop">
             
             
-                <h1>Pizzeria Online</h1>
+            <h1>Pizzeria Online</h1>
             
             
-                <div id="edit_profile">
-                    <a  href="PizzaShopServlet?action=editProfile">Redigera profil</a>
-                </div>
+            <div id="edit_profile">
+                <a  href="PizzaShopServlet?action=editProfile">Edit profile</a>
+            </div>
             
             
+            <form method="POST" action=PizzaShopServlet?action=addToCart>
 
-            <div id="ingredient_container">
-            	
-                <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
-                
-                <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
+                <div id="ingredient_container">
+                    <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
 
-                    
-                    <div class="ingredient">
-                        <div class="name"><c:out value="${ingredient.getName()}"/></div>
-                        <div class="price"><c:out value="${ingredient.getPrice()}"/> :-</div>
-                        <div class="pick">
-                            <input type="checkbox" name="pick_input"/>
+                    <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
+
+                        <div class="ingredient">
+                           <div class="name"><c:out value="${ingredient.getName()}"/></div>
+                           <div class="price"><c:out value="${ingredient.getPrice()}"/> :-</div>
+                           <div class="pick">
+                               <input type="checkbox" name="pick_input" value="${ingredient.getName()}" />
+                           </div>
                         </div>
-                    </div>
+
+                    </c:forEach>
+
+                </div>
+
+                <div id="shop_feedback_panel">
+                    <label id="pizza_price_label">Price:</label>
+                    <input id="pizza_price_textbox" type="text"/>
+                    <input id="add_pizza_button" type="submit" value="Lägg till pizza i kundvagnen"/>
+                </div>
                     
-
-                 </c:forEach>
-
-            </div>
-            
-            <div id="shop_feedback_panel">
-                <label id="pizza_price_label">Pris:</label>
-                <input id="pizza_price_textbox" type="text"/>
-                <input id="add_pizza_button" type="button" value="Lägg till pizza i kundvagnen"/>
-            </div>
+            </form>
             
             <div id="cart">
-                <h3 id="cart_header">Kundvagn</h3>
-                <a href="PizzaShopServlet?action=checkout">Till kassan</a>
+                <h3 id="cart_header">Cart</h3>
+                <jsp:useBean id="cartBean" class="beans.CartBean" scope="application"/>
+
+                    <c:forEach var="pizza" items="${cartBean.cart}">
+
+                        <div class="pizza">
+                           <div class="name">Pizza with: 
+                               
+                               <c:forEach var="pizzaIngredient" items="${pizza[1]}">
+                                    <c:out value="${pizzaIngredient.getName()} "/>
+                               </c:forEach>
+
+                           </div>
+                            <form class="remove" method="post" action=PizzaShopServlet?action=removeFromCart&pizzaId=${pizza[0]}>
+                                <input type="submit" value="Remove"/>
+                            </form>
+                        </div>
+
+                    </c:forEach>
+                
+                <a href="PizzaShopServlet?action=checkout">Check out</a>
             </div>
   
         </div>

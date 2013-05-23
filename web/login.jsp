@@ -18,8 +18,9 @@
         
         <div id="login">
             <h1>Pizza Online</h1>
-            <h3>Logga in</h3>
-            <form>
+            <h3>Log in</h3>
+            <form action=PizzaShopServlet?action=loginCheck method="post" >
+
                 <ul>
                     <li>
                         <label id="is_admin">Admin:</label>
@@ -27,20 +28,24 @@
                     </li>
                     
                     <li>
-                        <label id="user_name">Användarnamn:</label>
+                        <label id="user_name">Username:</label>
                         <input type="text" name="user_name_input" id="user_name_input"/>
                     </li>
                     <li>
-                        <label id="user_password">Lösenord:</label>
+                        <label id="user_password">Password:</label>
                         <input type="text" name="user_password_input" id="user_password_input"/>
                     </li>
 
-                    <li>
-                        <input class="login_button" type="button" value="Skapa ny användare"/>
-                        <input class="login_button" type="submit" value="Logga in">
+                    <li>                    
+                        <input class="login_button" type="submit" value="Log in">
                     </li>
                 </ul>   
             </form>
+           
+            <form action=PizzaShopServlet?action=createProfile method="post">
+                <input class="login_button" type="submit" value="Create new user">
+            </form>
+            
 
         </div>
     </body>

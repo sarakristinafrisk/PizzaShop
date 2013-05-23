@@ -4,10 +4,13 @@
  */
 package servlets;
 
+import beans.CartBean;
+import beans.IngredientBean;
 import beans.IngredientListBean;
 import beans.ProfileBean;
 import beans.ProfileListBean;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.*;
@@ -26,6 +29,7 @@ public class PizzaShopServlet extends HttpServlet {
     private static String jdbcURL = null;
     private IngredientListBean ingredientList = null;
     private ProfileListBean profileList = null;
+    private CartBean cart = null;
     /**
      *
      * @param config
@@ -50,13 +54,17 @@ public class PizzaShopServlet extends HttpServlet {
             profileList = new ProfileListBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere");//jdbcURL);//"jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
         } catch(Exception e) {
             throw new ServletException(e);
-        }
-        
+        }      
+       
+
         
         // servletContext is the same as scope Application
 	// store the booklist in application scope
         ServletContext servletContext = getServletContext();
         servletContext.setAttribute("ingredientList", ingredientList);
+        
+        cart = new CartBean();
+        servletContext.setAttribute("cartBean",cart);
     }
     
     /**
@@ -95,12 +103,41 @@ public class PizzaShopServlet extends HttpServlet {
             } else {
                 //Error page
             }
-            
-            
 
             
         } else if (request.getParameter("action").equals("shop")){
             //Rätta till så att den hämtar i web.xml
+            rd = request.getRequestDispatcher("/shop.jsp"); 
+            rd.forward(request,response);
+            
+            
+        } else if (request.getParameter("action").equals("addToCart")){
+            String[] pizzaIngredients = request.getParameterValues("pick_input");
+            ArrayList<IngredientBean> pizza = new ArrayList<IngredientBean>();
+
+            ArrayList<IngredientBean> allIngredients = ingredientList.getIngredientList();
+            
+            //add selected ingredients to pizza
+            for (int i=0; i<pizzaIngredients.length; i++) {
+                String ingredientName = pizzaIngredients[i];
+                
+                for (int j=0; j<allIngredients.size(); j++) {
+                    if (ingredientName.equals(allIngredients.get(j).getName())) {
+                        pizza.add(allIngredients.get(j));
+                    }
+                }         
+            }
+            
+            cart.addPizza(pizza);
+
+            rd = request.getRequestDispatcher("/shop.jsp"); 
+            rd.forward(request,response);
+            
+            
+        } else if (request.getParameter("action").equals("removeFromCart")) {
+            int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
+            cart.removePizza(pizzaId);
+            
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
             

@@ -43,4 +43,9 @@ public class IngredientBean {
     public void setStock(int _stock) {
         stock=_stock;
     }
+    
+    public String webCast() {
+		return "<div>" + this.toString() + "</div>";
+	}
+
 }

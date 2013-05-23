@@ -14,13 +14,13 @@ import java.util.*;
  */
 public class IngredientListBean {
     
-    private Collection ingredientList;
+    private ArrayList ingredientList;
     private String url = null;
     
     // constructor used for testing
     public IngredientListBean() throws Exception {
         this(
-          "jdbc:mysql://localhost/pizzashop?user=root&password=yourpasswordhere");
+          "jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere");
     }
     
     public IngredientListBean(String _url) throws Exception {
@@ -74,9 +74,9 @@ public class IngredientListBean {
         }
     }
     
-    public Collection getIngredientList() {
+    public ArrayList getIngredientList() {
         return ingredientList;
     }
-    
+
     
 }

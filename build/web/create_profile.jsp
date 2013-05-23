@@ -12,29 +12,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css.css" />
 
-        <title>Skapa en ny profil</title>
+        <title>Create new profile</title>
         
     </head>
     <body>
         <div id="create_user">
             <h1>Pizza Online</h1>
-            <h3>Skapa ny profil</h3>
-            <form>
+            <h3>Create new profile</h3>
+            <form action=PizzaShopServlet?action=createProfileCheck method="post">
                 <ul>
                     <li>
-                        <label id="user_name">Användarnamn:</label>
-                        <input type="text" name="user_name_input" id="user_name_input"/>
+                        <label id="user_name">Username:</label>
+                        <input type="text" name="user_name_input"/>
                     </li>
                     <li>
-                        <label id="user_password">Lösenord:</label>
+                        <label id="user_password">Password</label>
                         <input type="text" name="user_password_input" id="user_password_input"/>
                     </li>
                     <li>
-                        <label id="user_firstname">Namn:</label>
+                        <label id="user_firstname">Firstname:</label>
                         <input type="text" name="user_firstname_input" id="user_firstname_input"/>
                     </li>
                     <li>
-                        <label id="user_surname">Efternamn:</label>
+                        <label id="user_surname">Lastname:</label>
                         <input type="text" name="user_surname_input" id="user_surname_input"/>
                     </li>
                     <li>
@@ -42,23 +42,23 @@
                         <input type="text" name="user_email_input" id="user_email_input"/>
                     </li>
                     <li>
-                        <label id="user_address">Gatuadress:</label>
+                        <label id="user_address">Address:</label>
                         <input type="text" name="user_address_input" id="user_address_input"/>
                     </li>
                     <li>
-                        <label id="user_postcode_input">Postnummer:</label>
+                        <label id="user_postcode_input">Postcode:</label>
                         <input type="text" name="user_postcode_input" id="user_postcode_input"/>
                     </li>
                     <li>
-                        <label id="user_city">Stad:</label>
+                        <label id="user_city">City:</label>
                         <input type="text" name="user_city_input" id="user_city_input"/>
                     </li>
                     <li>
-                        <label id="user_country">Land:</label>
-                        <input type="text" name="user_contry_input" id="user_contry_input"/>
+                        <label id="user_country">Country:</label>
+                        <input type="text" name="user_country_input" id="user_contry_input"/>
                     </li>
                     <li>
-                        <input class="create_user_button" type="submit" value="Spara" />
+                        <input class="create_user_button" type="submit" value="Save">
                     </li>
                 </ul>   
             </form>

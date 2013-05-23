@@ -18,8 +18,11 @@
         
         <div id="check_out">
             <h1>Pizza Online</h1>
-            <h3>Välkommen till kassan!</h3>
+            <h3>Thanks for your order!</h3>
             
+            <form action=PizzaShopServlet?action=shop method="post">
+                <input type="submit" value="Back to the shop">
+            </form>
 
         </div>
     </body>

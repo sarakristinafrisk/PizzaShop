@@ -14,6 +14,7 @@ import java.util.*;
 public class CartBean {
     private ArrayList<Object> cart;
     int index;
+    int total_price = 0;
     /** Creates a new instance of ShoppingBean */
 
     public CartBean() {
@@ -22,11 +23,13 @@ public class CartBean {
     
     // add some copies of a book to the shopping cart
 
-    public void addPizza(ArrayList<IngredientBean> pizza) {
-        Object newPizzaItem[] = new Object[2];
+    public void addPizza(ArrayList<IngredientBean> pizza, int price) {
+        Object newPizzaItem[] = new Object[3];
         newPizzaItem[0] = index;
         index++;
         newPizzaItem[1] = pizza;
+        newPizzaItem[2] = price;
+        total_price+=price;
         cart.add(newPizzaItem); 
         int i;
     }    
@@ -50,11 +53,15 @@ public class CartBean {
     }     
     
     // clear the cart
-    void clear() {
+    public void clear() {
         cart.clear();
     }
 
 
+    public int getTotalPrice() {
+        return total_price;
+    }
+    
     // get the cart
     public ArrayList<Object> getCart(){
         return cart;

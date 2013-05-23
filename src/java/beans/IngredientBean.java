@@ -12,13 +12,13 @@ public class IngredientBean {
     
     private int stock;
     private String name;
-    private double price;
+    private int price;
     
     /** Creates a new instance of IngredientBean */
     public IngredientBean() {
     }
     
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
     

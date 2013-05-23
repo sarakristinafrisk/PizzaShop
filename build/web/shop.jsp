@@ -51,8 +51,6 @@
                 </div>
 
                 <div id="shop_feedback_panel">
-                    <label id="pizza_price_label">Price:</label>
-                    <input id="pizza_price_textbox" type="text"/>
                     <input id="add_pizza_button" type="submit" value="Lägg till pizza i kundvagnen"/>
                 </div>
                     
@@ -79,7 +77,11 @@
 
                     </c:forEach>
                 
-                <a href="PizzaShopServlet?action=checkout">Check out</a>
+             <form action=PizzaShopServlet?action=checkout method="post">
+                <label id="cart_price_label">Total price: </label>
+                <input id="cart_price" type="text" name="cart_price" value="${cartBean.getTotalPrice()}"/>
+                <input type="submit" value="Check out">
+            </form>
             </div>
   
         </div>

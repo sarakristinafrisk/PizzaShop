@@ -50,7 +50,7 @@ public class IngredientListBean {
                 IngredientBean iBean = new IngredientBean();
 
                 iBean.setName(resultSet.getString("INGREDIENT_NAME"));
-                iBean.setPrice(resultSet.getInt("INGREDIENT_PRICE")); // problem med double
+                iBean.setPrice(resultSet.getInt("INGREDIENT_PRICE")); 
                 iBean.setStock(resultSet.getInt("INGREDIENT_STOCK"));
                 ingredientList.add(iBean);
             }

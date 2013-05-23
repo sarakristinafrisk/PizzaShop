@@ -7,6 +7,7 @@ package servlets;
 import beans.CartBean;
 import beans.IngredientBean;
 import beans.IngredientListBean;
+import beans.OrderBean;
 import beans.ProfileBean;
 import beans.ProfileListBean;
 import java.io.*;
@@ -30,6 +31,7 @@ public class PizzaShopServlet extends HttpServlet {
     private IngredientListBean ingredientList = null;
     private ProfileListBean profileList = null;
     private CartBean cart = null;
+    private String currentUser;
     /**
      *
      * @param config
@@ -98,6 +100,7 @@ public class PizzaShopServlet extends HttpServlet {
             String user_password = request.getParameter("user_password_input");
 
             if (profileList.checkIfExisting(user_name, user_password)) {
+                currentUser = user_name;
                 rd = request.getRequestDispatcher("/shop.jsp"); 
                 rd.forward(request,response);
             } else {
@@ -117,6 +120,8 @@ public class PizzaShopServlet extends HttpServlet {
 
             ArrayList<IngredientBean> allIngredients = ingredientList.getIngredientList();
             
+            int price = 0; 
+            
             //add selected ingredients to pizza
             for (int i=0; i<pizzaIngredients.length; i++) {
                 String ingredientName = pizzaIngredients[i];
@@ -124,16 +129,30 @@ public class PizzaShopServlet extends HttpServlet {
                 for (int j=0; j<allIngredients.size(); j++) {
                     if (ingredientName.equals(allIngredients.get(j).getName())) {
                         pizza.add(allIngredients.get(j));
+                        price+=allIngredients.get(j).getPrice();
                     }
                 }         
             }
             
-            cart.addPizza(pizza);
+            cart.addPizza(pizza, price);
 
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
             
-            
+         } else if (request.getParameter("action").equals("checkout")) {
+             
+                OrderBean ob = new OrderBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere", 
+                        cart , currentUser);
+		try{
+		    ob.saveOrder();
+		}
+		catch(Exception e){
+		    throw new ServletException("Error saving order", e);
+		}
+
+            rd = request.getRequestDispatcher("/check_out.jsp"); 
+            rd.forward(request,response);
+        
         } else if (request.getParameter("action").equals("removeFromCart")) {
             int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
             cart.removePizza(pizzaId);

@@ -7,6 +7,8 @@
 
 <%@page import="beans.IngredientListBean"%>
 <%@page import="beans.CartBean"%>
+<%@page import="beans.ProfileBean"%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,7 +29,14 @@
             
             
             <div id="edit_profile">
-                <a  href="PizzaShopServlet?action=editProfile">Edit profile</a>
+            
+                <jsp:useBean id="currentUser" class="beans.ProfileBean" scope="application"/>
+
+                Inloggad: <c:out value="${currentUser.getUsername()}"/>
+                
+                <form id action=PizzaShopServlet?action=editProfile method="post">
+                    <input type="submit" value="Edit profile">
+                </form>
             </div>
             
             

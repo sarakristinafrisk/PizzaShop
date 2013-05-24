@@ -4,6 +4,7 @@
     Author     : Sara Frisk
     Author     : Emma Rangert
 --%>
+<%@page import="beans.ProfileBean"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,20 +28,32 @@
                     <label id="stock_label">Antal</label>
                 </div>
                 
-                <div class="ingredient">
-                    <input class="name" type="text" name="name">
-                    <input class="price" type="text" name="price">
-                    <input class="stock" type="text" name="stock">
-                </div>
-             
-                <div class="ingredient">
-                    <input class="name" type="text" name="name">
-                    <input class="price" type="text" name="price">
-                    <input class="stock" type="text" name="stock">
-                </div>
+                <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
+
+                <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
+                
+                    <div class="ingredient">
+                         <form method="post" action=PizzaShopServlet?action=updateIngredient&ingredientId=${ingredient}>
+
+                            <input class="name" type="text" name="name_admin" value="${ingredient.getName()}">
+                            <input class="price" type="text" name="price_admin" value="${ingredient.getPrice()}">
+                            <input class="stock" type="text" name="stock_admin" value="${ingredient.getStock()}">
+
+                            <input type="submit" class="update" value="Update"/>
+                         </form>
+                    </div>
+
+                </c:forEach>
+                        
             </div>
-            <input id="add_ingredient" type="button" value="Lägg till ingrediens"/>
-            
+            <div id="new_ingredient_container">
+                <form id="add_ingredient" method="post" action=PizzaShopServlet?action=addIngredient>
+                     <input class="name" type="text" name="new_name">
+                     <input class="price" type="text" name="new_price">
+                     <input class="stock" type="text" name="new_stock"">
+                     <input class="add" type="submit" value="Add"/>
+                </form>
+            </div>
         </div>
     </body>
 </html>

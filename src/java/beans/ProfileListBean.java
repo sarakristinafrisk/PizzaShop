@@ -18,6 +18,7 @@ public class ProfileListBean {
     private ArrayList profileList;
     private String url = null;
     
+    ProfileBean currentUser;
 
     
     // constructor used for testing
@@ -86,6 +87,19 @@ public class ProfileListBean {
     public ArrayList getProfileList() {
         return profileList;
     }
+  
+    public ProfileBean getCurrentUser() {
+        return currentUser;
+    }
+    
+    public void setCurrentUser(String user) {
+        ArrayList<ProfileBean> list = profileList;
+        for (int i=0; i<list.size(); i++) {
+            if (user.equals(list.get(i).getUsername())) {
+                currentUser = list.get(i);
+            }
+        }
+    }
     
     public Boolean checkIfExisting(String username) {
         Boolean exist = false;
@@ -111,6 +125,21 @@ public class ProfileListBean {
         }
         return exist;   
     }
+    
+    public Boolean checkIfExistingAdmin(String username, String password) {
+        Boolean exist = false;
+        ArrayList<ProfileBean> list = profileList;
+        for (int i=0; i<list.size(); i++) {
+            if (username.equals(list.get(i).getUsername()) && list.get(i).getIsAdmin()) {
+                if (password.equals(list.get(i).getPassword())) {
+                    exist = true;
+                }     
+            } else {
+            }
+        }
+        return exist;  
+    }
+    
     
     public void addProfileBean(ProfileBean pBean) throws Exception {
         profileList.add(pBean);
@@ -151,23 +180,47 @@ public class ProfileListBean {
                 databaseConnection.close();
             } catch(Exception e) {}
         }
-    /*  
-       try {
-           String sql = "insert into customer(customer_username, customer_password, customer_name, customer_surname, "
-                    + "customer_email, customer_address, customer_zipcode, customer_city, customer_country, customer_isadmin) "
-                    + "VALUES('" + pBean.getUsername() + "','" + pBean.getPassword() + "','" + pBean.getFirstname() + "','" + pBean.getSurname() + "','" 
-                    + pBean.getEmail() + "','" + pBean.getAddress() + "'," + Integer.parseInt(pBean.getPostcode()) + ",'" + pBean.getCity() + "','" 
-                    + pBean.getCountry() + "'," + false + ")";
 
+    }
+    
+    
+    public void updateProfileBean(ProfileBean pBean) throws Exception {        
+        currentUser = pBean;
+        
+        Connection databaseConnection = null;
+        Statement sqlStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+            // create database connection and load jdbc driver
+            Class.forName("com.mysql.jdbc.Driver");
+            databaseConnection = DriverManager.getConnection(url);
 
-           
-          String sql = "insert into customer(customer_username, customer_isadmin) VALUES('" + pBean.getUsername() + "'," + false + ")";
-            // save them in the result set
-            sqlStatement.executeQuery(sql);
+            PreparedStatement st = databaseConnection.prepareStatement("update customer SET "
+                    + "customer_username=" + currentUser.getUsername() + ", "
+                    + "customer_password=" + currentUser.getPassword() + ", "
+                    + "customer_name=" + currentUser.getFirstname() + ", "
+                    + "customer_surname=" + currentUser.getSurname() + ", "
+                    + "customer_email=" + currentUser.getEmail() + ", "
+                    + "customer_address=" + currentUser.getAddress() + ", "
+                    + "customer_zipcode=" + currentUser.getPostcode() + ", "
+                    + "customer_city=" + currentUser.getCity() + ", "
+                    + "customer_country=" + currentUser.getCountry() 
+                    + " WHERE customer_username = '" + currentUser.getUsername() + "';");
+               
+            st.executeUpdate();
             
-            
-        } catch(SQLException sqle) {
+        }  catch(SQLException sqle) {
             throw new Exception(sqle);
-        }*/
+        }
+        
+        // close all connections
+        finally {
+
+            try {
+                databaseConnection.close();
+            } catch(Exception e) {}
+        }
+
     }
 }

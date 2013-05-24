@@ -31,7 +31,7 @@ public class PizzaShopServlet extends HttpServlet {
     private IngredientListBean ingredientList = null;
     private ProfileListBean profileList = null;
     private CartBean cart = null;
-    private String currentUser;
+    private ProfileBean currentUser;
     /**
      *
      * @param config
@@ -66,7 +66,10 @@ public class PizzaShopServlet extends HttpServlet {
         servletContext.setAttribute("ingredientList", ingredientList);
         
         cart = new CartBean();
-        servletContext.setAttribute("cartBean",cart);
+        currentUser = new ProfileBean();
+        servletContext.setAttribute("cartBean", cart);
+        servletContext.setAttribute("currentUser", currentUser);
+
     }
     
     /**
@@ -98,14 +101,31 @@ public class PizzaShopServlet extends HttpServlet {
             
             String user_name = request.getParameter("user_name_input");
             String user_password = request.getParameter("user_password_input");
-
-            if (profileList.checkIfExisting(user_name, user_password)) {
-                currentUser = user_name;
-                rd = request.getRequestDispatcher("/shop.jsp"); 
-                rd.forward(request,response);
+            String user_isadmin = request.getParameter("is_admin_input");
+            
+            if (user_isadmin != null) {
+                if (profileList.checkIfExistingAdmin(user_name, user_password)) {
+                    profileList.setCurrentUser(user_name);
+                    currentUser = profileList.getCurrentUser();
+                 
+                    rd = request.getRequestDispatcher("/admin.jsp"); 
+                    rd.forward(request,response);                   
+                } else {
+                    //ERROR PAGE
+                }
             } else {
-                //Error page
+                if (profileList.checkIfExisting(user_name, user_password)) {
+                    profileList.setCurrentUser(user_name);
+                    currentUser = profileList.getCurrentUser();
+                
+                    rd = request.getRequestDispatcher("/shop.jsp"); 
+                    rd.forward(request,response);
+                } else {
+                    //Error page
+                }
+                
             }
+
 
             
         } else if (request.getParameter("action").equals("shop")){
@@ -142,7 +162,7 @@ public class PizzaShopServlet extends HttpServlet {
          } else if (request.getParameter("action").equals("checkout")) {
              
                 OrderBean ob = new OrderBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere", 
-                        cart , currentUser);
+                        cart , currentUser.getUsername());
 		try{
 		    ob.saveOrder();
 		}
@@ -177,10 +197,10 @@ public class PizzaShopServlet extends HttpServlet {
            String user_country = request.getParameter("user_country_input");
            
 
-           /*if (user_name.equals("") || user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
+           if (user_name.equals("") || user_password.equals("") ||user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
                     user_address.equals("") || user_postcode.equals("") || user_city.equals("") || user_country.equals("")) {
                //Fel-sida
-           } else */if (profileList.checkIfExisting(user_name)) {
+           } else if (profileList.checkIfExisting(user_name)) {
                //Fel-sida
            } else {
                ProfileBean pBean = new ProfileBean();
@@ -207,8 +227,44 @@ public class PizzaShopServlet extends HttpServlet {
             
             /* FYLL I FÄLT */
             
-            rd = request.getRequestDispatcher("/create_profile.jsp"); 
+            rd = request.getRequestDispatcher("/edit_profile.jsp"); 
             rd.forward(request,response);
+            
+            
+        } else if (request.getParameter("action").equals("editProfileCheck")) {
+            
+
+           String user_name = request.getParameter("edit_user_name_input");
+           String user_password = request.getParameter("edit_user_password_input");
+           String user_firstname = request.getParameter("edit_user_firstname_input");
+           String user_surname = request.getParameter("edit_user_surname_input");
+           String user_email = request.getParameter("edit_user_email_input");
+           String user_address = request.getParameter("edit_user_address_input");
+           String user_postcode = request.getParameter("edit_user_postcode_input");
+           String user_city = request.getParameter("edit_user_city_input");
+           String user_country = request.getParameter("edit_user_country_input");
+           
+
+           if (user_password.equals("") || user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
+                    user_address.equals("") || user_postcode.equals("") || user_city.equals("") || user_country.equals("")) {
+               //Fel-sida
+           } else {
+               ProfileBean pBean = new ProfileBean();
+               pBean.setUsername(user_name);
+               pBean.setFirstname(user_firstname);
+               pBean.setSurname(user_surname);
+               pBean.setPassword(user_password);
+               pBean.setEmail(user_email);
+               pBean.setAddress(user_address);
+               pBean.setPostcode(user_postcode);
+               pBean.setCity(user_city);
+               pBean.setCountry(user_country);
+
+               profileList.updateProfileBean(pBean);
+               
+               rd = request.getRequestDispatcher("/shop.jsp"); 
+               rd.forward(request,response);
+           }
             
         } else if (request.getParameter("action").equals("checkout")) {
             rd = request.getRequestDispatcher("/check_out.jsp"); 

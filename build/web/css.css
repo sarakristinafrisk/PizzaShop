@@ -128,10 +128,16 @@ body {
 /* INGREDIENT CONTAINER - ADMIN */
 
 #admin #ingredient_container {
-    width: 300px;
+    width: 400px;
     padding: 5px 10px;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+#admin #new_ingredient_container {
+    width: 400px;
+    padding: 5px 10px;
+    margin-top: 40px;
 }
 
 #admin .ingredient {
@@ -139,21 +145,25 @@ body {
     height: 20px;
     padding: 5px 0;
 }
-#admin .ingredient .name {
+#admin .name {
     float: left;
     width: 150px;
 }
 
-#admin .ingredient .price {
+#admin .price {
    float: left; 
    margin: 0 20px;
-   width: 50px;
-   
+   width: 50px;  
 }
 
-#admin .ingredient .stock {
-    float: right;
+#admin .stock {
+    float: left;
     width: 40px;
+}
+
+#admin .update, .add{
+    float: right;
+    width: 80px;
 }
 
 #admin #add_ingredient {
@@ -175,3 +185,4 @@ body {
     display: inline-block;
     width: 40px;
 }
+

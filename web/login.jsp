@@ -24,7 +24,7 @@
                 <ul>
                     <li>
                         <label id="is_admin">Admin:</label>
-                        <input type="checkbox" id="is_admin_input"/>
+                        <input type="checkbox" name="is_admin_input" id="is_admin_input"/>
                     </li>
                     
                     <li>
@@ -44,6 +44,7 @@
            
             <form action=PizzaShopServlet?action=createProfile method="post">
                 <input class="login_button" type="submit" value="Create new user">
+                You can't create a new admin!
             </form>
             
 

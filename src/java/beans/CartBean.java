@@ -55,6 +55,7 @@ public class CartBean {
     // clear the cart
     public void clear() {
         cart.clear();
+        total_price = 0;
     }
 
 

@@ -12,6 +12,7 @@ public class OrderBean  {
     private PreparedStatement orderPstmt;
     private PreparedStatement orderItemPstmt;
     private PreparedStatement orderIngredientPstmt;
+    private PreparedStatement orderIngredientStockPstmt;
 
     private PreparedStatement stmt = null;
     private ResultSet rs=null;
@@ -25,6 +26,7 @@ public class OrderBean  {
     private static String orderSQL;
     private static String orderItemSQL;
     private static String orderIngredientSQL;
+    private static String orderIngredientStockSQL;
 
   public OrderBean(String _url, CartBean _cartBean, String _username){
     url = _url;
@@ -67,6 +69,7 @@ public class OrderBean  {
 	// now handle all items in the cart
 	saveOrderItems();
 	cartBean.clear();
+        
 	con.commit();  // end the transaction
     }
     catch(Exception e){
@@ -93,6 +96,14 @@ public class OrderBean  {
 	    orderItemPstmt.close();
 	}
 	catch(Exception e){}
+        try{
+	    orderIngredientPstmt.close();
+	}
+	catch(Exception e){}
+	try{
+	    orderIngredientStockPstmt.close();
+	}
+	catch(Exception e){}
 	try{
 	    con.close();
 	}
@@ -105,15 +116,26 @@ public class OrderBean  {
  */
   private void saveOrderItems() throws Exception{
 
+      
+         orderItemSQL="INSERT INTO pizzas(order_order_id)";
+         orderItemSQL += "VALUES (?)";
+         
+         orderItemPstmt = con.prepareStatement(orderItemSQL);
+      
+         orderIngredientSQL="INSERT INTO pizzas_has_ingredients(pizzas_id,";
+         orderIngredientSQL += " ingredients_ingredient_name)";
+         orderIngredientSQL += "VALUES (?,?)";
+          
+         orderIngredientPstmt = con.prepareStatement(orderIngredientSQL);
+
+         
+         
+         
       //Loop through all pizzas
       for (int i=0; i<cartBean.getCart().size(); i++) {
           
           
-         orderItemSQL="INSERT INTO pizzas(order_order_id)";
-         orderItemSQL += "VALUES (?)";
-         
-         
-         orderItemPstmt = con.prepareStatement(orderItemSQL);
+
          orderItemPstmt.setInt(1,orderId);
          orderItemPstmt.execute();
          
@@ -130,16 +152,20 @@ public class OrderBean  {
          
          //Loop through all ingredients on a single pizza
          for (int j=0; j<ingredients.size(); j++) {
-            orderIngredientSQL="INSERT INTO pizzas_has_ingredients(pizzas_id";
-            orderIngredientSQL += " ingredients_ingredient_name)";
-            orderIngredientSQL += "VALUES (?,?)";
-
-            orderIngredientPstmt = con.prepareStatement(orderIngredientSQL);
             orderIngredientPstmt.setInt(1,pizzaId);
-            orderIngredientPstmt.setString(2,ingredients.get(i).getName());
+            orderIngredientPstmt.setString(2,ingredients.get(j).getName());
             
-            orderIngredientPstmt.execute();
-             
+            orderIngredientPstmt.executeUpdate();
+           
+            int stock = ingredients.get(j).getStock() - 1;
+            orderIngredientStockSQL="UPDATE ingredients SET ingredient_stock=" + stock + 
+                    " WHERE ingredient_name='" + ingredients.get(j).getName() + "';";
+
+            ingredients.get(j).setStock(stock);
+            
+            orderIngredientStockPstmt = con.prepareStatement(orderIngredientStockSQL);
+            orderIngredientStockPstmt.execute();
+          
          }
          
       }

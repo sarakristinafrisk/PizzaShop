@@ -38,13 +38,28 @@
 
                     <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
 
-                        <div class="ingredient">
-                           <div class="name"><c:out value="${ingredient.getName()}"/></div>
-                           <div class="price"><c:out value="${ingredient.getPrice()}"/> :-</div>
-                           <div class="pick">
-                               <input type="checkbox" name="pick_input" value="${ingredient.getName()}" />
-                           </div>
-                        </div>
+                        <c:if test = "${ingredient.getStock() != 0}">
+                            <div class="ingredient" id="in_stock">
+                                <div class="name"><c:out value="${ingredient.getName()}"/></div>
+                                <div class="price"><c:out value="${ingredient.getPrice()}"/> :-</div>
+                                <div class="pick">
+                                    <input type="checkbox" name="pick_input" value="${ingredient.getName()}" />
+                                </div>
+                            </div>
+                        </c:if>
+                           
+                        <c:if test = "${ingredient.getStock() == 0}">
+                            <div class="ingredient">
+                                <div class="name"><font color="#ccc"><c:out value="${ingredient.getName()}"/></font></div>
+                                <div class="price"><font color="#ccc">Out of stock</font></div>
+                                    <div class="pick">
+                                        <input type="checkbox" name="pick_input" disabled="disabled" value="${ingredient.getName()}" />
+                                    </div>
+                            </div>
+                        </c:if>                                 
+
+
+
 
                     </c:forEach>
 

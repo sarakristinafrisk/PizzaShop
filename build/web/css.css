@@ -81,7 +81,7 @@ body {
 }
 
 #shop #ingredient_container {
-    width: 300px;
+    width: 350px;
     padding: 5px 10px;
     border: 1px solid black;
     border-radius: 5px;
@@ -100,7 +100,7 @@ body {
 #shop .ingredient .price {
    float: left; 
    margin: 0 20px;
-   width: 50px;
+   width: 100px;
    
 }
 

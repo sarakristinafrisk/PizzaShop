@@ -33,7 +33,7 @@
                     </li>
                     <li>
                         <label id="user_password">Password:</label>
-                        <input type="text" name="user_password_input" id="user_password_input"/>
+                        <input type="password" name="user_password_input" id="user_password_input"/>
                     </li>
 
                     <li>                    

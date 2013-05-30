@@ -18,7 +18,7 @@ public class ProfileListBean {
     private ArrayList profileList;
     private String url = null;
     
-    private ProfileBean currentUser;
+    private ProfileBean currentUser = new ProfileBean();
 
     
     // constructor used for testing
@@ -58,7 +58,7 @@ public class ProfileListBean {
                 pBean.setSurname(resultSet.getString("customer_surname"));
                 pBean.setEmail(resultSet.getString("customer_email"));
                 pBean.setAddress(resultSet.getString("customer_address"));
-                pBean.setPostcode(resultSet.getString("customer_zipcode"));
+                pBean.setPostcode(resultSet.getInt("customer_zipcode"));
                 pBean.setCity(resultSet.getString("customer_city"));
                 pBean.setCountry(resultSet.getString("customer_country"));
                 pBean.setIsAdmin(resultSet.getBoolean("customer_isadmin"));
@@ -96,7 +96,16 @@ public class ProfileListBean {
         ArrayList<ProfileBean> list = profileList;
         for (int i=0; i<list.size(); i++) {
             if (user.equals(list.get(i).getUsername())) {
-                currentUser = list.get(i);
+                currentUser.setUsername(list.get(i).getUsername());
+                currentUser.setPassword(list.get(i).getPassword());
+                currentUser.setFirstname(list.get(i).getFirstname());
+                currentUser.setSurname(list.get(i).getSurname());
+                currentUser.setEmail(list.get(i).getEmail());
+                currentUser.setAddress(list.get(i).getAddress());
+                currentUser.setPostcode(list.get(i).getPostcode());
+                currentUser.setCity(list.get(i).getCity());
+                currentUser.setCountry(list.get(i).getCountry());
+                currentUser.setIsAdmin(list.get(i).getIsAdmin());          
             }
         }
     }
@@ -162,7 +171,7 @@ public class ProfileListBean {
             st.setString(4,pBean.getSurname());
             st.setString(5,pBean.getEmail());
             st.setString(6,pBean.getAddress());
-            st.setInt(7,Integer.parseInt(pBean.getPostcode()));
+            st.setInt(7, pBean.getPostcode());
             st.setString(8,pBean.getCity());
             st.setString(9,pBean.getCountry());
             st.setBoolean(10, false);
@@ -195,16 +204,16 @@ public class ProfileListBean {
             databaseConnection = DriverManager.getConnection(url);
 
             PreparedStatement st = databaseConnection.prepareStatement("update customer SET "
-                    + "customer_username=" + currentUser.getUsername() + ", "
-                    + "customer_password=" + currentUser.getPassword() + ", "
-                    + "customer_name=" + currentUser.getFirstname() + ", "
-                    + "customer_surname=" + currentUser.getSurname() + ", "
-                    + "customer_email=" + currentUser.getEmail() + ", "
-                    + "customer_address=" + currentUser.getAddress() + ", "
-                    + "customer_zipcode=" + currentUser.getPostcode() + ", "
-                    + "customer_city=" + currentUser.getCity() + ", "
-                    + "customer_country=" + currentUser.getCountry() 
-                    + " WHERE customer_username = '" + currentUser.getUsername() + "';");
+                    + "customer_username='" + pBean.getUsername() + "', "
+                    + "customer_password='" + pBean.getPassword() + "', "
+                    + "customer_name='" + pBean.getFirstname() + "', "
+                    + "customer_surname='" + pBean.getSurname() + "', "
+                    + "customer_email='" + pBean.getEmail() + "', "
+                    + "customer_address='" + pBean.getAddress() + "', "
+                    + "customer_zipcode=" + pBean.getPostcode() + ", "
+                    + "customer_city='" + pBean.getCity() + "', "
+                    + "customer_country='" + pBean.getCountry() 
+                    + "' WHERE customer_username = '" + pBean.getUsername() + "';");
                
             st.executeUpdate();
             
@@ -219,6 +228,25 @@ public class ProfileListBean {
                 databaseConnection.close();
             } catch(Exception e) {}
         }
+        
+        for (int i=0; i<profileList.size(); i++) {
+            ProfileBean temp = (ProfileBean) profileList.get(i);
+            if (pBean.getUsername().equals(temp.getUsername())) {
+                temp.setPassword(pBean.getPassword());
+                temp.setFirstname(pBean.getFirstname());
+                temp.setSurname(pBean.getSurname());
+                temp.setEmail(pBean.getEmail());
+                temp.setAddress(pBean.getAddress());
+                temp.setPostcode(pBean.getPostcode());
+                temp.setCity(pBean.getCity());
+                temp.setCountry(pBean.getCountry());
+                temp.setIsAdmin(pBean.getIsAdmin()); 
+            }
+            
+        }
+        
+  
+        
 
     }
 }

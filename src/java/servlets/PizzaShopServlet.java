@@ -180,11 +180,7 @@ public class PizzaShopServlet extends HttpServlet {
             
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
-           
-            
-            
-            
-            
+
             
          } else if (request.getParameter("action").equals("updateIngredient")) {
             String ingredientName = request.getParameter("name_admin");
@@ -236,12 +232,7 @@ public class PizzaShopServlet extends HttpServlet {
             rd = request.getRequestDispatcher("/admin.jsp"); 
             rd.forward(request,response);
            
-            
-                       
-            
-            
-            
-            
+  
             
         } else if (request.getParameter("action").equals("createProfile")) {
             rd = request.getRequestDispatcher("/create_profile.jsp"); 
@@ -255,13 +246,13 @@ public class PizzaShopServlet extends HttpServlet {
            String user_surname = request.getParameter("user_surname_input");
            String user_email = request.getParameter("user_email_input");
            String user_address = request.getParameter("user_address_input");
-           String user_postcode = request.getParameter("user_postcode_input");
+           int user_postcode = Integer.parseInt(request.getParameter("user_postcode_input"));
            String user_city = request.getParameter("user_city_input");
            String user_country = request.getParameter("user_country_input");
            
 
            if (user_name.equals("") || user_password.equals("") ||user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
-                    user_address.equals("") || user_postcode.equals("") || user_city.equals("") || user_country.equals("")) {
+                    user_address.equals("") || user_postcode != 0 || user_city.equals("") || user_country.equals("")) {
                //Fel-sida
            } else if (profileList.checkIfExisting(user_name)) {
                //Fel-sida
@@ -298,19 +289,19 @@ public class PizzaShopServlet extends HttpServlet {
         } else if (request.getParameter("action").equals("editProfileCheck")) {
             
 
-           String user_name = request.getParameter("edit_user_name_input");
+           String user_name = profileList.getCurrentUser().getUsername();
            String user_password = request.getParameter("edit_user_password_input");
            String user_firstname = request.getParameter("edit_user_firstname_input");
            String user_surname = request.getParameter("edit_user_surname_input");
            String user_email = request.getParameter("edit_user_email_input");
            String user_address = request.getParameter("edit_user_address_input");
-           String user_postcode = request.getParameter("edit_user_postcode_input");
+           int user_postcode = Integer.parseInt(request.getParameter("edit_user_postcode_input"));
            String user_city = request.getParameter("edit_user_city_input");
            String user_country = request.getParameter("edit_user_country_input");
-           
+           Boolean user_isadmin = profileList.getCurrentUser().getIsAdmin();
 
            if (user_password.equals("") || user_firstname.equals("") || user_surname.equals("") || user_email.equals("") || 
-                    user_address.equals("") || user_postcode.equals("") || user_city.equals("") || user_country.equals("")) {
+                    user_address.equals("") || user_postcode == 0 || user_city.equals("") || user_country.equals("")) {
                //Fel-sida
            } else {
                ProfileBean pBean = new ProfileBean();
@@ -323,8 +314,9 @@ public class PizzaShopServlet extends HttpServlet {
                pBean.setPostcode(user_postcode);
                pBean.setCity(user_city);
                pBean.setCountry(user_country);
-
+               pBean.setIsAdmin(user_isadmin);
                profileList.updateProfileBean(pBean);
+               profileList.setCurrentUser(pBean.getUsername());
                
                rd = request.getRequestDispatcher("/shop.jsp"); 
                rd.forward(request,response);

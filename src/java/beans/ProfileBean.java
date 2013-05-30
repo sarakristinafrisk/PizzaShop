@@ -18,7 +18,7 @@ public class ProfileBean {
     private String surname;
     private String email;
     private String address;
-    private String postcode;
+    private int postcode;
     private String city;
     private String country;
     private Boolean isAdmin;
@@ -67,11 +67,11 @@ public class ProfileBean {
         address = _address;
     }
     
-    public String getPostcode() {
+    public int getPostcode() {
         return postcode;
     }
     
-    public void setPostcode(String _postcode) {
+    public void setPostcode(int _postcode) {
         postcode = _postcode;
     }
     
@@ -106,5 +106,5 @@ public class ProfileBean {
     public void setIsAdmin(Boolean _isAdmin) {
         isAdmin = _isAdmin;
     }
-
+    
 }

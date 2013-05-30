@@ -24,7 +24,6 @@
                 
                 
                 <jsp:useBean id="currentUser" class="beans.ProfileBean" scope="application"/>
-                <jsp:getProperty name='currentUser' property='username'/>         
                 <ul>
                     <li>
                         <label id="user_name">Username:</label>

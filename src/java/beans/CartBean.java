@@ -44,9 +44,11 @@ public class CartBean {
             for (int i=0; i<cart.size(); i++) {
                 Object pizza[] = (Object[]) cart.get(i);
                 Integer pizzaId = (Integer) pizza[0];
+                Integer price = (Integer) pizza[2];
                 
                 if (pizzaId == id) {
                     cart.remove(i);
+                    total_price-=price;
                 }   
             }
         }

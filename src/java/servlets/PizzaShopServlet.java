@@ -178,6 +178,7 @@ public class PizzaShopServlet extends HttpServlet {
             int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
             cart.removePizza(pizzaId);
             
+            
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
 

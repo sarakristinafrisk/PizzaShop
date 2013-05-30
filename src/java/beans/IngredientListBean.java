@@ -77,6 +77,98 @@ public class IngredientListBean {
     public ArrayList getIngredientList() {
         return ingredientList;
     }
+   
+    
+    
+    public void updateIngredient(IngredientBean newBean) {
+        
+        for (int i=0; i<ingredientList.size(); i++) {
+            IngredientBean oldBean = (IngredientBean) ingredientList.get(i);
+            if (oldBean.getName().equals(newBean.getName())) {
+                oldBean.setName(newBean.getName());
+                oldBean.setPrice(newBean.getPrice());
+                oldBean.setStock(newBean.getStock());
+            }   
+        }
+    } 
 
+    
+    
+    public void addIngredientBean(IngredientBean iBean) throws Exception {        
+        
+        Connection databaseConnection = null;
+        Statement sqlStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+            // create database connection and load jdbc driver
+            Class.forName("com.mysql.jdbc.Driver");
+            databaseConnection = DriverManager.getConnection(url);
+
+            PreparedStatement st = databaseConnection.prepareStatement("insert into ingredients values(?,?,?)");
+            
+            st.setString(1,iBean.getName());
+            st.setInt(2,iBean.getPrice());
+            st.setInt(3,iBean.getStock());
+            
+            st.executeUpdate();
+            
+        }  catch(SQLException sqle) {
+            throw new Exception(sqle);
+        }
+        
+        // close all connections
+        finally {
+            
+            try {
+                databaseConnection.close();
+            } catch(Exception e) {}
+        }
+        
+        ingredientList.add(iBean);
+
+    }
+    
+    
+    public void updateIngredientBean(IngredientBean iBean, int index) throws Exception {        
+        Connection databaseConnection = null;
+        Statement sqlStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+            // create database connection and load jdbc driver
+            Class.forName("com.mysql.jdbc.Driver");
+            databaseConnection = DriverManager.getConnection(url);
+
+            PreparedStatement st = databaseConnection.prepareStatement("update ingredients SET "
+                    + "ingredient_name='" + iBean.getName() + "', "
+                    + "ingredient_price=" + iBean.getPrice() + ", "
+                    + "ingredient_stock=" + iBean.getStock() 
+                    + " WHERE ingredient_name = '" + iBean.getName() + "';");
+               
+            st.executeUpdate();
+            
+        }  catch(SQLException sqle) {
+            throw new Exception(sqle);
+        }
+        
+        // close all connections
+        finally {
+
+            try {
+                databaseConnection.close();
+            } catch(Exception e) {}
+        }
+        
+        
+        IngredientBean oldBean = (IngredientBean) ingredientList.get(index);
+        oldBean.setName(iBean.getName());
+        oldBean.setPrice(iBean.getPrice());
+        oldBean.setStock(iBean.getStock());
+
+    }
+
+   
+    
     
 }

@@ -178,6 +178,68 @@ public class PizzaShopServlet extends HttpServlet {
             
             rd = request.getRequestDispatcher("/shop.jsp"); 
             rd.forward(request,response);
+           
+            
+            
+            
+            
+            
+         } else if (request.getParameter("action").equals("updateIngredient")) {
+            String ingredientName = request.getParameter("name_admin");
+            int ingredientPrice = Integer.parseInt(request.getParameter("price_admin"));
+            int ingredientStock = Integer.parseInt(request.getParameter("stock_admin"));
+            
+            for (int i=0; i<ingredientList.getIngredientList().size(); i++) {
+                IngredientBean iBean = (IngredientBean) ingredientList.getIngredientList().get(i);
+                if (iBean.getName().equals(ingredientName)) {
+                    IngredientBean newBean = new IngredientBean();
+                    newBean.setName(ingredientName);
+                    newBean.setPrice(ingredientPrice);
+                    newBean.setStock(ingredientStock);
+                    ingredientList.updateIngredientBean(newBean, i);
+                    break;
+                }  
+            }
+            
+            rd = request.getRequestDispatcher("/admin.jsp"); 
+            rd.forward(request,response);
+           
+            
+         } else if (request.getParameter("action").equals("addIngredient")) {
+            String ingredientName = request.getParameter("name_admin");
+            int ingredientPrice = Integer.parseInt(request.getParameter("price_admin"));
+            int ingredientStock = Integer.parseInt(request.getParameter("stock_admin"));
+            
+            Boolean exist = false;
+   
+            for (int i=0; i<ingredientList.getIngredientList().size(); i++) {
+                IngredientBean iBean = (IngredientBean) ingredientList.getIngredientList().get(i);
+                if (iBean.getName().equals(ingredientName)) {
+                    exist = true;
+                }  
+            }
+            
+            if (exist) {
+                // ERROR PAGE
+            } else {
+                IngredientBean newBean = new IngredientBean();
+                newBean.setName(ingredientName);
+                newBean.setPrice(ingredientPrice);
+                newBean.setStock(ingredientStock);
+                ingredientList.addIngredientBean(newBean);
+            }
+
+
+                                
+            rd = request.getRequestDispatcher("/admin.jsp"); 
+            rd.forward(request,response);
+           
+            
+                       
+            
+            
+            
+            
             
         } else if (request.getParameter("action").equals("createProfile")) {
             rd = request.getRequestDispatcher("/create_profile.jsp"); 
@@ -265,11 +327,7 @@ public class PizzaShopServlet extends HttpServlet {
                rd.forward(request,response);
            }
             
-        } else if (request.getParameter("action").equals("checkout")) {
-            rd = request.getRequestDispatcher("/check_out.jsp"); 
-            rd.forward(request,response);
-        }
-        
+        } 
 
     }
 

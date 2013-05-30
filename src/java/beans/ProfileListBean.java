@@ -184,9 +184,7 @@ public class ProfileListBean {
     }
     
     
-    public void updateProfileBean(ProfileBean pBean) throws Exception {        
-        currentUser = pBean;
-        
+    public void updateProfileBean(ProfileBean pBean) throws Exception {                
         Connection databaseConnection = null;
         Statement sqlStatement = null;
         ResultSet resultSet = null;

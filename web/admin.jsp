@@ -45,7 +45,7 @@
                             <input class="name" type="text" name="name_admin" value="${ingredient.name}">
                             <input class="price" type="text" name="price_admin" value="${ingredient.price}">
                             <input class="stock" type="text" name="stock_admin" value="${ingredient.stock}">
-
+                            
                             <input type="submit" class="update" value="Update"/>
                          </form>
                     </div>

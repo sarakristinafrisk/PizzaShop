@@ -206,9 +206,9 @@ public class PizzaShopServlet extends HttpServlet {
            
             
          } else if (request.getParameter("action").equals("addIngredient")) {
-            String ingredientName = request.getParameter("name_admin");
-            int ingredientPrice = Integer.parseInt(request.getParameter("price_admin"));
-            int ingredientStock = Integer.parseInt(request.getParameter("stock_admin"));
+            String ingredientName = request.getParameter("new_name");
+            int ingredientPrice = Integer.parseInt(request.getParameter("new_price"));
+            int ingredientStock = Integer.parseInt(request.getParameter("new_stock"));
             
             Boolean exist = false;
    
@@ -278,6 +278,7 @@ public class PizzaShopServlet extends HttpServlet {
                profileList.addProfileBean(pBean);
                //Skapa böna
                
+               profileList.setCurrentUser(pBean.getUsername());
                rd = request.getRequestDispatcher("/shop.jsp"); 
                rd.forward(request,response);
            }

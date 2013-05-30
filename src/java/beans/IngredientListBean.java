@@ -167,6 +167,37 @@ public class IngredientListBean {
         oldBean.setStock(iBean.getStock());
 
     }
+    
+    public void deleteIngredientBean(String name, int index) throws Exception {        
+        Connection databaseConnection = null;
+        Statement sqlStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+            // create database connection and load jdbc driver
+            Class.forName("com.mysql.jdbc.Driver");
+            databaseConnection = DriverManager.getConnection(url);
+
+            PreparedStatement st = databaseConnection.prepareStatement(
+                   "DELETE FROM ingredients WHERE ingredient_name='" + name + "';");
+
+            st.executeUpdate();
+            
+        }  catch(SQLException sqle) {
+            throw new Exception(sqle);
+        }
+        
+        // close all connections
+        finally {
+
+            try {
+                databaseConnection.close();
+            } catch(Exception e) {}
+        }
+        
+        ingredientList.remove(index);
+
+    }
 
    
     

@@ -18,7 +18,7 @@ public class ProfileListBean {
     private ArrayList profileList;
     private String url = null;
     
-    ProfileBean currentUser;
+    private ProfileBean currentUser;
 
     
     // constructor used for testing

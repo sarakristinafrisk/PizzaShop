@@ -24,44 +24,44 @@
                 
                 
                 <jsp:useBean id="currentUser" class="beans.ProfileBean" scope="application"/>
-Inloggad: <c:out value="${currentUser.getUsername()}"/>
-                                
+                Inloggad: <c:out value="${currentUser.username}"/>
+                <jsp:getProperty name='currentUser' property='username'/>         
                 <ul>
                     <li>
                         <label id="user_name">Username:</label>
-                        <input type="text" name="user_name_input" disabled="disabled" value="${currentUser.getUsername()}"/>
+                        <input type="text" name="user_name_input" disabled="disabled" value="${currentUserBean.getUsername()}"/>
                     </li>
                     <li>
                         <label id="user_password">Password</label>
-                        <input type="text" name="edit_user_password_input" id="edit_user_password_input" value="${currentUser.getPassword()}"/>
+                        <input type="text" name="edit_user_password_input" id="edit_user_password_input" value="${currentUserBean.getPassword()}"/>
                     </li>
                     <li>
                         <label id="user_firstname">Firstname:</label>
-                        <input type="text" name="edit_user_firstname_input" id="edit_user_firstname_input" value="${currentUser.getFirstname()}"/>
+                        <input type="text" name="edit_user_firstname_input" id="edit_user_firstname_input" value="${currentUserBean.getFirstname()}"/>
                     </li>
                     <li>
                         <label id="user_surname">Lastname:</label>
-                        <input type="text" name="edit_user_surname_input" id="edit_user_surname_input" value="${currentUser.getSurname()}"/>
+                        <input type="text" name="edit_user_surname_input" id="edit_user_surname_input" value="${currentUserBean.getSurname()}"/>
                     </li>
                     <li>
                         <label id="user_email">E-mail:</label>
-                        <input type="text" name="edit_user_email_input" id="edit_user_email_input" value="${currentUser.getEmail()}"/>
+                        <input type="text" name="edit_user_email_input" id="edit_user_email_input" value="${currentUserBean.getEmail()}"/>
                     </li>
                     <li>
                         <label id="user_address">Address:</label>
-                        <input type="text" name="edit_user_address_input" id="edit_user_address_input" value="${currentUser.getAddress()}"/>
+                        <input type="text" name="edit_user_address_input" id="edit_user_address_input" value="${currentUserBean.getAddress()}"/>
                     </li>
                     <li>
                         <label id="user_postcode_input">Postcode:</label>
-                        <input type="text" name="edit_user_postcode_input" id="edit_user_postcode_input"value="${currentUser.getPostcode()}"/>
+                        <input type="text" name="edit_user_postcode_input" id="edit_user_postcode_input"value="${currentUserBean.getPostcode()}"/>
                     </li>
                     <li>
                         <label id="user_city">City:</label>
-                        <input type="text" name="edit_user_city_input" id="edit_user_city_input" value="${currentUser.getCity()}"/>
+                        <input type="text" name="edit_user_city_input" id="edit_user_city_input" value="${currentUserBean.getCity()}"/>
                     </li>
                     <li>
                         <label id="user_country">Country:</label>
-                        <input type="text" name="edit_user_country_input" id="edit_user_contry_input" value="${currentUser.getCountry()}"/>
+                        <input type="text" name="edit_user_country_input" id="edit_user_contry_input" value="${currentUserBean.getCountry()}"/>
                     </li>
                     <li>
                         <input class="create_user_button" type="submit" value="Save">

@@ -30,8 +30,10 @@
             
             <div id="edit_profile">
             
-                <jsp:useBean id="currentUser" class="beans.ProfileBean" scope="application"/>
-
+                <jsp:useBean id="currentUser" class="beans.ProfileBean" scope="application"/>                
+ 
+                            
+                            
                 Inloggad: <c:out value="${currentUser.getUsername()}"/>
                 
                 <form id action=PizzaShopServlet?action=editProfile method="post">

@@ -5,6 +5,7 @@
 package servlets;
 
 import beans.CartBean;
+import beans.ErrorBean;
 import beans.IngredientBean;
 import beans.IngredientListBean;
 import beans.OrderBean;
@@ -31,7 +32,7 @@ public class PizzaShopServlet extends HttpServlet {
     private IngredientListBean ingredientList = null;
     private ProfileListBean profileList = null;
     private CartBean cart = null;
-    private ProfileBean currentUser;
+    private ErrorBean error;
     /**
      *
      * @param config
@@ -64,12 +65,12 @@ public class PizzaShopServlet extends HttpServlet {
 	// store the booklist in application scope
         ServletContext servletContext = getServletContext();
         servletContext.setAttribute("ingredientList", ingredientList);
-        
-        cart = new CartBean();
-        currentUser = new ProfileBean();
-        servletContext.setAttribute("cartBean", cart);
-        servletContext.setAttribute("currentUser", currentUser);
+        servletContext.setAttribute("currentUser", profileList.getCurrentUser());
 
+        cart = new CartBean();
+        error = new ErrorBean();
+        servletContext.setAttribute("cartBean", cart);
+        servletContext.setAttribute("errorBean", error);
     }
     
     /**
@@ -106,17 +107,15 @@ public class PizzaShopServlet extends HttpServlet {
             if (user_isadmin != null) {
                 if (profileList.checkIfExistingAdmin(user_name, user_password)) {
                     profileList.setCurrentUser(user_name);
-                    currentUser = profileList.getCurrentUser();
                  
                     rd = request.getRequestDispatcher("/admin.jsp"); 
                     rd.forward(request,response);                   
                 } else {
-                    //ERROR PAGE
+                    //ERROR
                 }
             } else {
                 if (profileList.checkIfExisting(user_name, user_password)) {
                     profileList.setCurrentUser(user_name);
-                    currentUser = profileList.getCurrentUser();
                 
                     rd = request.getRequestDispatcher("/shop.jsp"); 
                     rd.forward(request,response);
@@ -162,7 +161,7 @@ public class PizzaShopServlet extends HttpServlet {
          } else if (request.getParameter("action").equals("checkout")) {
              
                 OrderBean ob = new OrderBean("jdbc:mysql://localhost/PizzaShop?user=root&password=yourpasswordhere", 
-                        cart , currentUser.getUsername());
+                        cart , profileList.getCurrentUser().getUsername());
 		try{
 		    ob.saveOrder();
 		}

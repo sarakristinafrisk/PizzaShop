@@ -35,9 +35,10 @@
                     <label id="stock_label">Antal</label>
                 </div>
             
-                <jsp:useBean id="ingredientBean" class="beans.IngredientListBean" scope="application"/> 
 
-                <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
+                    <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
+
+                    <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
 
                     <div class="ingredient">
                          <form method="post" action=PizzaShopServlet?action=updateIngredient>
@@ -48,12 +49,14 @@
                             
                             <input type="submit" class="update" value="Update"/>
                          </form>
-                    </div>
-                            
-                </c:forEach>
-                        
-            </div> 
-                
+                    </div>                               
+
+
+                    </c:forEach>
+
+                </div>
+
+   
             <div id="new_ingredient_container">
                 <h3>Add ingredient</h3>
                 <div class="column_labels">
@@ -68,6 +71,6 @@
                      <input class="add" type="submit" value="Add"/>
                 </form>
            </div>
-       </div>      
+       </div>  
     </body>
 </html>

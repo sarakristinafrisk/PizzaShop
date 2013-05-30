@@ -198,7 +198,7 @@ public class PizzaShopServlet extends HttpServlet {
                 }  
             }
             
-            rd = request.getRequestDispatcher("/temp.jsp"); 
+            rd = request.getRequestDispatcher("/admin.jsp"); 
             rd.forward(request,response);
            
             

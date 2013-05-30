@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <label id="user_password">Password</label>
-                        <input type="text" name="edit_user_password_input" id="edit_user_password_input" value="<jsp:getProperty name='currentUser' property='password'/>"/>
+                        <input type="password" name="edit_user_password_input" id="edit_user_password_input" value="<jsp:getProperty name='currentUser' property='password'/>"/>
                     </li>
                     <li>
                         <label id="user_firstname">Firstname:</label>

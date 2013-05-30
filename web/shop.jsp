@@ -52,7 +52,7 @@
                     <div class="column_labels">
                     <label id="name_label">Name</label>
                     <label id="price_label">Price</label>
-                    <label id="stock_label">Quantity</label>
+                    <label id="stock_label">Ingredient</label>
                     </div>
                     
                     <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 

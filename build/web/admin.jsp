@@ -30,9 +30,9 @@
             <div id="ingredient_container">
 
                 <div class="column_labels">
-                    <label id="name_label">Namn</label>
-                    <label id="price_label">Pris</label>
-                    <label id="stock_label">Antal</label>
+                    <label id="name_label">Name</label>
+                    <label id="price_label">Price</label>
+                    <label id="stock_label">Quantity</label>
                 </div>
             
 
@@ -60,9 +60,9 @@
             <div id="new_ingredient_container">
                 <h3>Add ingredient</h3>
                 <div class="column_labels">
-                    <label id="name_label">Namn</label>
-                    <label id="price_label">Pris</label>
-                    <label id="stock_label">Antal</label>
+                    <label id="name_label">Name</label>
+                    <label id="price_label">Price</label>
+                    <label id="stock_label">Quantity</label>
                 </div>
                 <form  method="post" action=PizzaShopServlet?action=addIngredient>
                      <input class="name" required="required" type="text" name="new_name">

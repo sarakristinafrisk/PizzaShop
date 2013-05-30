@@ -43,8 +43,8 @@
             </form>
            
             <form action=PizzaShopServlet?action=createProfile method="post">
-                <input class="login_button" type="submit" value="Create new user">
-                You can't create a new admin!
+                <input class="login_button" type="submit" value="Create new user"><br><br>
+                You can't create a new admin from the user interface.
             </form>
             
 

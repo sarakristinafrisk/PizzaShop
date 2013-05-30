@@ -116,8 +116,24 @@ body {
     width: 30px;
 }
 
+#shop .column_labels #name_label {
+    display: inline-block;
+    width: 140px;
+}
 
-/* CHART */
+#shop .column_labels #price_label {
+    display: inline-block;
+    width: 100px;
+    margin: 0 23px;
+}
+
+#shop .column_labels #stock_label {
+    display: inline-block;
+    width: 40px;
+}
+
+
+/* CART */
 
 #shop #cart_header {
     margin-top: 50px;

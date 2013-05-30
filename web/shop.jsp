@@ -48,6 +48,13 @@
             <form method="POST" action=PizzaShopServlet?action=addToCart>
 
                 <div id="ingredient_container">
+                    
+                    <div class="column_labels">
+                    <label id="name_label">Name</label>
+                    <label id="price_label">Price</label>
+                    <label id="stock_label">Quantity</label>
+                    </div>
+                    
                     <jsp:useBean id="ingredientBean" class="beans.IngredientListBean"/> 
 
                     <c:forEach var="ingredient" items="${ingredientBean.ingredientList}">
@@ -80,7 +87,7 @@
                 </div>
 
                 <div id="shop_feedback_panel">
-                    <input id="add_pizza_button" type="submit" value="Lägg till pizza i kundvagnen"/>
+                    <input id="add_pizza_button" type="submit" value="Add pizza to cart"/>
                 </div>
                     
             </form>

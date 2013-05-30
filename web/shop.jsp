@@ -34,10 +34,13 @@
  
                             
                             
-                Inloggad: <c:out value="${currentUser.getUsername()}"/>
+                Inloggad: <c:out value="${currentUser.username}"/>
                 
                 <form id action=PizzaShopServlet?action=editProfile method="post">
                     <input type="submit" value="Edit profile">
+                </form>
+                <form id action=PizzaShopServlet?action=logOut method="post">
+                    <input type="submit" value="Logout">
                 </form>
             </div>
             

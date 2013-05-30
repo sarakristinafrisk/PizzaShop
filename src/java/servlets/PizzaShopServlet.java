@@ -111,7 +111,8 @@ public class PizzaShopServlet extends HttpServlet {
                     rd = request.getRequestDispatcher("/admin.jsp"); 
                     rd.forward(request,response);                   
                 } else {
-                    //ERROR
+                    rd = request.getRequestDispatcher("/login_error.jsp"); 
+                    rd.forward(request,response);
                 }
             } else {
                 if (profileList.checkIfExisting(user_name, user_password)) {
@@ -120,7 +121,8 @@ public class PizzaShopServlet extends HttpServlet {
                     rd = request.getRequestDispatcher("/shop.jsp"); 
                     rd.forward(request,response);
                 } else {
-                    //Error page
+                    rd = request.getRequestDispatcher("/login_error.jsp"); 
+                    rd.forward(request,response);
                 }
                 
             }
@@ -327,7 +329,14 @@ public class PizzaShopServlet extends HttpServlet {
                rd.forward(request,response);
            }
             
-        } 
+        }
+        else if (request.getParameter("action").equals("logOut")) {
+            
+            /* FYLL I FÄLT */
+            
+            rd = request.getRequestDispatcher("/index.jsp"); 
+            rd.forward(request,response);
+        }
 
     }
 

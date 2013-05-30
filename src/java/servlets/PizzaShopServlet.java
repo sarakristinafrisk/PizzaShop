@@ -190,16 +190,15 @@ public class PizzaShopServlet extends HttpServlet {
             for (int i=0; i<ingredientList.getIngredientList().size(); i++) {
                 IngredientBean iBean = (IngredientBean) ingredientList.getIngredientList().get(i);
                 if (iBean.getName().equals(ingredientName)) {
-                    IngredientBean newBean = new IngredientBean();
-                    newBean.setName(ingredientName);
-                    newBean.setPrice(ingredientPrice);
-                    newBean.setStock(ingredientStock);
-                    ingredientList.updateIngredientBean(newBean, i);
+                    iBean.setName(ingredientName);
+                    iBean.setPrice(ingredientPrice);
+                    iBean.setStock(ingredientStock);
+                    ingredientList.updateIngredientBean(iBean, i);
                     break;
                 }  
             }
             
-            rd = request.getRequestDispatcher("/admin.jsp"); 
+            rd = request.getRequestDispatcher("/temp.jsp"); 
             rd.forward(request,response);
            
             
@@ -225,6 +224,7 @@ public class PizzaShopServlet extends HttpServlet {
                 newBean.setPrice(ingredientPrice);
                 newBean.setStock(ingredientStock);
                 ingredientList.addIngredientBean(newBean);
+                
             }
 
 
